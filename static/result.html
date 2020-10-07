@@ -1,0 +1,23 @@
+<html>
+
+<head>
+
+  <title>Static Website</title>
+  <link rel="stylesheet" href="indexstyles.css">
+</head>
+
+<body>
+  <h1>{{$celsiustemperature := .result}}</h1>
+  <h1> Thank you {{.personname}} for using our product! </h1>
+  {{if eq .code 200}}
+  <h1>Temperature in {{.city}} is {{ $celsiustemperature }} °C now! Short weather description: {{.description}}</h1>
+  <h1> From all of the {{.number}} searches {{.citynumber}} was searches for {{.city}} !! </h1>
+  {{else}}
+  <h1> {{.city}} is a non-valid city name!</h1>
+  {{end}}
+
+
+  <a href="/" class="button">Go back to the homepage!</a>
+</body>
+
+</html>
