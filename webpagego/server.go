@@ -54,7 +54,7 @@ func StartApp() {
 func NoSleep() {
 	for range time.NewTicker(time.Minute * 15).C {
 		log.Println(time.Now(), "I am a still not sleeping dyno!")
-		req, err := http.NewRequest("GET", "https://dry-garden-11636.herokuapp.com/", nil)
+		req, err := http.NewRequest("GET", "https://golangwebpagev2.herokuapp.com/", nil)
 		if err != nil {
 			log.Println("ERROR in self request!")
 		}

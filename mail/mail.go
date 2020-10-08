@@ -34,7 +34,7 @@ func SendConfirmation(email string, hashencoded string) {
 	to := []string{}
 	to = append(to, email)
 	data := Url{
-		Url: "https://dry-garden-11636.herokuapp.com/emailregistered/" + hashencoded,
+		Url: "https://golangwebpagev2.herokuapp.com/emailregistered/" + hashencoded,
 	}
 	mail := mailyak.New("smtp.gmail.com:587", smtp.PlainAuth("", sender, pwd, "smtp.gmail.com"))
 	mail.To(email)
