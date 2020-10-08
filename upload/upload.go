@@ -14,7 +14,7 @@ func UploadHandler(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 	}
-	out, err := os.Create("static/upload/" + filename)
+	out, err := os.Create("uploadfiles/" + filename)
 	if err != nil {
 		log.Println(err)
 	}
