@@ -16,7 +16,7 @@ func UploadHandler(c *gin.Context) {
 	if err != nil {
 		log.Println("Error in form", err)
 	}
-	out, err := os.Create("uploadfiles/" + filename)
+	out, err := os.Create("uploadfiles/test" + filename)
 	log.Println(out)
 	if err != nil {
 		log.Println("Error in filecreation", err)
