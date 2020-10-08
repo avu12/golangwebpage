@@ -9,7 +9,7 @@ import (
 )
 
 func UploadHandler(c *gin.Context) {
-	file, header, err := c.Request.FormFile("upload")
+	file, header, err := c.Request.FormFile("uploadedfile")
 	log.Println(file, header, err)
 	filename := header.Filename
 	if err != nil {
