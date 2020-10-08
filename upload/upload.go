@@ -13,6 +13,7 @@ import (
 func UploadHandler(c *gin.Context) {
 	file, header, err := c.Request.FormFile("uploadedfile")
 	log.Println(file, header, err)
+	log.Println(os.Getwd())
 	filename := header.Filename
 	if err != nil {
 		log.Println("Error in form", err)
