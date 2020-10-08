@@ -19,7 +19,7 @@ func UploadHandler(c *gin.Context) {
 		log.Println("Error in form", err)
 	}
 	newpath := filepath.Join(".", "uploadtest/")
-	os.MkdirAll("upload2", os.ModePerm)
+	os.MkdirAll("/upload2", os.ModePerm)
 	out, err := os.Create(newpath + filename)
 	log.Println(out)
 	if err != nil {
