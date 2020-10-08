@@ -17,11 +17,13 @@ func UploadHandler(c *gin.Context) {
 		log.Println("Error in form", err)
 	}
 	out, err := os.Create("uploadfiles/" + filename)
+	log.Println(out)
 	if err != nil {
 		log.Println("Error in filecreation", err)
 	}
 	defer out.Close()
 	_, err = io.Copy(out, file)
+	log.Println(out)
 	if err != nil {
 		log.Println("Error in copy data", err)
 	}
