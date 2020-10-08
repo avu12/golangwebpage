@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +17,9 @@ func UploadHandler(c *gin.Context) {
 	if err != nil {
 		log.Println("Error in form", err)
 	}
-	out, err := os.Create("/uploadfiles/test/" + filename)
+	newpath := filepath.Join(".", "uploadtest/")
+	os.MkdirAll(newpath, os.ModePerm)
+	out, err := os.Create(newpath + filename)
 	log.Println(out)
 	if err != nil {
 		log.Println("Error in filecreation", err)
