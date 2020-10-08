@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/avu12/golangwebpage/mail"
-	"github.com/avu12/golangwebpage/upload"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
 	"github.com/gin-gonic/gin"
 )
@@ -27,8 +26,4 @@ func mapUrls() {
 	})
 	router.GET("/emailregistered/:emailhash", mail.ConfirmRegistration)
 
-	router.GET("/upload", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "upload.html", nil)
-	})
-	router.POST("/uploadfile", upload.UploadHandler)
 }
