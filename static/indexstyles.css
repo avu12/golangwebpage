@@ -4,6 +4,7 @@ button {
     text-align: center;
     margin: 4px 2px;
     padding: 15px 32px;
+    border-style:solid ;
   }
 
   .flex-container {
@@ -41,6 +42,7 @@ button {
     text-align: center;
     margin: 4px 2px;
     padding: 15px 32px;
+    border-style:solid ;
   }
   a{
     text-decoration: none;
@@ -55,4 +57,13 @@ button {
   }
   a:hover, a:active, a:focus {
     color:black;
+  }
+
+  .fileuploadbutton{
+    background-color: #dbcd02;
+    font-size: 20px;
+    text-align: center;
+    margin: 4px 2px;
+    padding: 15px 32px;
+    border-style:solid ;
   }
