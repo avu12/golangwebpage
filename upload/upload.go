@@ -3,6 +3,7 @@ package upload
 import (
 	"io"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -24,4 +25,5 @@ func UploadHandler(c *gin.Context) {
 	if err != nil {
 		log.Println("Error in copy data", err)
 	}
+	c.HTML(http.StatusOK, "uploadsuccesful.html", nil)
 }
