@@ -1,7 +1,6 @@
 package book
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/avu12/golangwebpage/database"
@@ -18,11 +17,11 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	err, Bsclice := database.SelectAllBooks()
+	/*err, Bsclice := database.SelectAllBooks()
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	log.Println(Bsclice)
+	log.Println(Bsclice) */
 	c.HTML(http.StatusOK, "showbooks.html", nil)
 }
