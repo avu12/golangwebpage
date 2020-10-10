@@ -3,6 +3,7 @@ package webpagego
 import (
 	"net/http"
 
+	"github.com/avu12/golangwebpage/book"
 	"github.com/avu12/golangwebpage/mail"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
 	"github.com/gin-gonic/gin"
