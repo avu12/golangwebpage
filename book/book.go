@@ -1,6 +1,7 @@
 package book
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 
@@ -11,6 +12,7 @@ import (
 
 func UploadBookHandler(c *gin.Context) {
 	var B types.Book
+	var Bsclice []types.Book
 	B.Title = c.PostForm("title")
 	B.Author = c.PostForm("author")
 	err := database.InsertBook(B.Title, B.Author)
@@ -18,21 +20,36 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	err = ShowAllBooks()
+	Bsclice, err = ShowAllBooks()
 	if err != nil {
 		log.Println(err)
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	c.HTML(http.StatusOK, "showbooks.html", nil)
+	t, err := template.ParseFiles("./templates/bookstemplate.html")
+
+	if err != nil {
+		log.Println(err)
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+	_ = Bsclice
+	c.HTML(http.StatusOK, t.Name(), 42)
+	//c.Writer.Header().Set("Content-Type", "text/html")
+	/*err = t.Execute(c.Writer, Bsclice)
+	if err != nil {
+		log.Println(err)
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}*/
+
+	//c.HTML(http.StatusOK, "showbooks.html", nil)
 }
 
-func ShowAllBooks() error {
+func ShowAllBooks() ([]types.Book, error) {
 	err, Bsclice := database.SelectAllBooks()
 	if err != nil {
-		return err
+		return nil, err
 	}
-	log.Println("no problem until here")
-	log.Println(Bsclice)
-	return nil
+	return Bsclice, nil
 }
