@@ -1,19 +1,16 @@
 package book
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/avu12/golangwebpage/database"
+	"github.com/avu12/golangwebpage/types"
 	"github.com/gin-gonic/gin"
 )
 
-type Book struct {
-	Title  string
-	Author string
-}
-
 func UploadBookHandler(c *gin.Context) {
-	var B Book
+	var B types.Book
 	B.Title = c.PostForm("title")
 	B.Author = c.PostForm("author")
 	err := database.InsertBook(B.Title, B.Author)
@@ -21,5 +18,11 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
+	err, Bsclice := database.SelectAllBooks()
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+	log.Println(Bsclice)
 	c.HTML(http.StatusOK, "showbooks.html", nil)
 }

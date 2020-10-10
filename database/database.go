@@ -6,7 +6,14 @@ import (
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/avu12/golangwebpage/types"
 )
+
+type Book struct {
+	Title  string
+	Author string
+}
 
 var (
 	temp      int
@@ -15,6 +22,7 @@ var (
 	count     int
 	email     string
 	quote     string
+	B         types.Book
 )
 
 func StartDatabaseUse(dbname string) (*sql.DB, error) {
@@ -219,4 +227,28 @@ func InsertBook(title string, author string) error {
 		return err
 	}
 	return nil
+}
+
+func SelectAllBooks() (err error, b []types.Book) {
+	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
+
+	var Bslice []types.Book
+
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(`SELECT title,author FROM "BOOKS"`)
+	if err != nil {
+		return err, nil
+	}
+	for rows.Next() {
+		err := rows.Scan(&B.Title, &B.Author)
+		if err != nil {
+			log.Println(err)
+		}
+		Bslice = append(Bslice, B)
+	}
+	return nil, Bslice
 }
