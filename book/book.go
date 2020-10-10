@@ -18,7 +18,12 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-
+	err = ShowAllBooks()
+	if err != nil {
+		log.Println(err)
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
 	c.HTML(http.StatusOK, "showbooks.html", nil)
 }
 
