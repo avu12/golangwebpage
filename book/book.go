@@ -1,9 +1,9 @@
 package book
 
 import (
-	"html/template"
 	"log"
 	"net/http"
+	"text/template"
 
 	"github.com/avu12/golangwebpage/database"
 	"github.com/avu12/golangwebpage/types"
@@ -26,7 +26,7 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	t, err := template.ParseFiles("./templates/emailverificationtemplate.html")
+	t, err := template.ParseFiles("./templates/bookstemplate.html")
 	if err != nil {
 		log.Println(err)
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
