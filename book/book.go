@@ -11,7 +11,7 @@ import (
 
 func UploadBookHandler(c *gin.Context) {
 	var B types.Book
-	var Bsclice []types.Book
+	var Bslice []types.Book
 	B.Title = c.PostForm("title")
 	B.Author = c.PostForm("author")
 	err := database.InsertBook(B.Title, B.Author)
@@ -19,14 +19,15 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	Bsclice, err = ShowAllBooks()
+	Bslice, err = ShowAllBooks()
+	log.Println(Bslice)
 	if err != nil {
 		log.Println(err)
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
 
-	c.HTML(http.StatusOK, "bookstemplate.html", Bsclice)
+	c.HTML(http.StatusOK, "bookstemplate.html", Bslice)
 
 }
 
