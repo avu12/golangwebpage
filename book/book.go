@@ -3,7 +3,6 @@ package book
 import (
 	"log"
 	"net/http"
-	"text/template"
 
 	"github.com/avu12/golangwebpage/database"
 	"github.com/avu12/golangwebpage/types"
@@ -26,14 +25,9 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-	t, err := template.ParseFiles("./templates/bookstemplate.html")
-	if err != nil {
-		log.Println(err)
-		c.HTML(http.StatusInternalServerError, "error.html", nil)
-		return
-	}
+
 	_ = Bsclice
-	c.HTML(http.StatusOK, t.Name(), 42)
+	c.HTML(http.StatusOK, "templates/bookstemplate.html", 42)
 	//c.Writer.Header().Set("Content-Type", "text/html")
 	/*err = t.Execute(c.Writer, Bsclice)
 	if err != nil {
