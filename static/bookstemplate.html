@@ -1,17 +1,23 @@
 <html>
 
 <head>
-
+    <link rel="stylesheet" href="indexstyles.css">
 </head>
 
 <body>
+    <div class="flex-container ">
 
-    <ul>
+
         {{range .}}
-        <li>{{.Title}}</li>
-        <li>{{.Author}}</li>
+        <div class="box">
+            {{.Title}}
+            {{.Author}}
+        </div>
         {{end}}
-    </ul>
+
+
+    </div>
+
 
 </body>
 

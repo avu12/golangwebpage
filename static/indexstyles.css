@@ -67,3 +67,9 @@ button {
     padding: 15px 32px;
     border-style:solid ;
   }
+
+  .box{
+    border-style:solid;
+    background-color: #724caf;
+    text-align: center;
+  }
