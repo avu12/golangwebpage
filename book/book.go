@@ -18,11 +18,16 @@ func UploadBookHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
+
+	c.HTML(http.StatusOK, "showbooks.html", nil)
+}
+
+func ShowAllBooks() error {
 	err, Bsclice := database.SelectAllBooks()
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error.html", nil)
-		return
+		return err
 	}
+	log.Println("no problem until here")
 	log.Println(Bsclice)
-	c.HTML(http.StatusOK, "showbooks.html", nil)
+	return nil
 }
