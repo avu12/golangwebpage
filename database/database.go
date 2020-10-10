@@ -239,7 +239,7 @@ func SelectAllBooks() (err error, b []types.Book) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query(`SELECT title,author FROM "BOOKS"`)
+	rows, err := db.Query(`SELECT "Title","Author" FROM "BOOKS"`)
 	if err != nil {
 		return err, nil
 	}
