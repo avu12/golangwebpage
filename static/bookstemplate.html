@@ -9,9 +9,11 @@
 
 
         {{range .}}
+        {{$author := .Author }}
+        {{$title := .Title }}
         <div class="box">
-            {{.Title}}
-            {{.Author}}
+            author title
+
         </div>
         {{end}}
 
