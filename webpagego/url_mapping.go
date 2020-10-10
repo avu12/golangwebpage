@@ -26,4 +26,10 @@ func mapUrls() {
 	})
 	router.GET("/emailregistered/:emailhash", mail.ConfirmRegistration)
 
+	router.GET("/recommendabook", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "books.html", nil)
+	})
+
+	router.POST("/uploadbook", book.UploadBookHandler)
+
 }

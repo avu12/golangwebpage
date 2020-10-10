@@ -205,3 +205,18 @@ func SelectQuote() (string, error) {
 	}
 	return quote, nil
 }
+
+func InsertBook(title string, author string) error {
+	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	res, err := db.Exec(`INSERT INTO "BOOKS" ("Title","Author") VALUES ($1::text,$2::text)`, title, author)
+	if err != nil {
+		log.Println(res, err)
+		return err
+	}
+	return nil
+}
