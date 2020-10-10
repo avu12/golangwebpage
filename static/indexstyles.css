@@ -69,7 +69,9 @@ button {
   }
 
   .box{
+    font-size: 28px;
     border-style:solid;
-    background-color: #724caf;
+    background-color: #af874c;
     text-align: center;
+    padding: 8px;
   }
