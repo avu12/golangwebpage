@@ -19,7 +19,7 @@ var (
 func init() {
 	router = gin.Default()
 	router.LoadHTMLGlob("static/*")
-	router.LoadHTMLGlob("template/*")
+	router.LoadHTMLGlob("templates/*")
 
 }
 
