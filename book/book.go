@@ -26,22 +26,8 @@ func UploadBookHandler(c *gin.Context) {
 		return
 	}
 
-	_ = Bsclice
-	/*t, err := template.ParseFiles("./templates/bookstemplate.html")
-	if err != nil {
-		log.Println(err)
-	}
-	_ = t */
-	c.HTML(http.StatusOK, "bookstemplate.html", 42)
-	//c.Writer.Header().Set("Content-Type", "text/html")
-	/*err = t.Execute(c.Writer, Bsclice)
-	if err != nil {
-		log.Println(err)
-		c.HTML(http.StatusInternalServerError, "error.html", nil)
-		return
-	}*/
+	c.HTML(http.StatusOK, "bookstemplate.html", Bsclice)
 
-	//c.HTML(http.StatusOK, "showbooks.html", nil)
 }
 
 func ShowAllBooks() ([]types.Book, error) {

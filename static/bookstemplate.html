@@ -6,9 +6,12 @@
 
 <body>
 
-    <p>
-        <a href="{{ .  }}">This is the testnumber, I want to see 42!</a>
-    </p>
+    <ul>
+        {{range .}}
+        <li>{{.Title}}</li>
+        <li>{{.Author}}</li>
+        {{end}}
+    </ul>
 
 </body>
 
