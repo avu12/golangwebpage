@@ -247,8 +247,10 @@ func SelectAllBooks() (err error, b []types.Book) {
 		err := rows.Scan(&B.Title, &B.Author)
 		if err != nil {
 			log.Println(err)
+			return err, nil
 		}
 		Bslice = append(Bslice, B)
 	}
+	log.Println(Bslice)
 	return nil, Bslice
 }
