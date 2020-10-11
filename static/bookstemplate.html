@@ -5,13 +5,14 @@
 </head>
 
 <body>
-    <div>
-        {{range .}}
-        <div class="box">
-            {{.Author}} {{.Title}}
-        </div>
-        {{end}}
+
+    {{range .}}
+    <div class="box">
+        {{.Author}} : {{.Title}}
     </div>
+    {{end}}
+
+
 
 
 
