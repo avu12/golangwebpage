@@ -4,12 +4,16 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"github.com/pkg/sftp"
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/net/proxy"
 )
 
 var (
@@ -67,4 +71,62 @@ func NoSleep() {
 		}
 		resp.Body.Close()
 	}
+}
+func TestSFTP() {
+
+	remote := os.Getenv("OWN_IPV6")
+	port := ":22"
+	pass := os.Getenv("SFTPTESTPWD")
+	user := os.Getenv("SFTPTESTUSER")
+
+	config := ssh.ClientConfig{
+		User: user,
+		Auth: []ssh.AuthMethod{
+			ssh.Password(pass),
+		},
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+	conn, err := ssh.Dial("tcp", remote+port, &config)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+	client, err := sftp.NewClient(conn)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer client.Close()
+}
+func TestFixieSFTP() {
+	remote := os.Getenv("OWN_IPV6")
+	port := ":22"
+	pass := os.Getenv("SFTPTESTPWD")
+	user := os.Getenv("SFTPTESTUSER")
+
+	config := ssh.ClientConfig{
+		User: user,
+		Auth: []ssh.AuthMethod{
+			ssh.Password(pass),
+		},
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+	_ = config
+	fixie_data := strings.Split(os.Getenv("FIXIE_SOCKS_HOST"), "@")
+	fixie_addr := fixie_data[1]
+	auth_data := strings.Split(fixie_data[0], ":")
+	auth := proxy.Auth{
+		User:     auth_data[0],
+		Password: auth_data[1],
+	}
+	dialer, err := proxy.SOCKS5("tcp", fixie_addr, &auth, proxy.Direct)
+	if err != nil {
+		log.Println(os.Stderr, "can't connect to the proxy:", err)
+
+	}
+	conn, err := dialer.Dial("tcp", remote+port)
+	if err != nil {
+		log.Println(err)
+	}
+	defer conn.Close()
+
 }
