@@ -99,7 +99,7 @@ func TestSFTP() {
 }
 func TestFixieSFTP() {
 	remote := os.Getenv("OWN_IPV6")
-	port := ":22"
+	//port := ":22"
 	pass := os.Getenv("SFTPTESTPWD")
 	user := os.Getenv("SFTPTESTUSER")
 
