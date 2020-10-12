@@ -11,8 +11,9 @@ require (
 	github.com/jackc/pgx/v4 v4.8.1 // indirect
 	github.com/lib/pq v1.8.0
 	github.com/olahol/melody v0.0.0-20180227134253-7bd65910e5ab
+	github.com/pkg/sftp v1.12.0
 	github.com/sparrc/go-ping v0.0.0-20190613174326-4e5b6552494c // indirect
 	github.com/tatsushid/go-fastping v0.0.0-20160109021039-d7bb493dee3e
 	github.com/tebeka/selenium v0.9.9 // indirect
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 )

@@ -2,7 +2,6 @@ package webpagego
 
 import (
 	"log"
-	"net"
 	"net/http"
 	"os"
 	"time"
@@ -11,7 +10,8 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	"github.com/tatsushid/go-fastping"
+	"github.com/pkg/sftp"
+	"golang.org/x/crypto/ssh"
 )
 
 var (
@@ -28,7 +28,7 @@ func init() {
 func StartApp() {
 	//Mapping urls with handlers
 	mapUrls()
-	Testping()
+	TestSFTP()
 	//sending email every day
 	go dailymail.SendDailyMail()
 
@@ -70,23 +70,28 @@ func NoSleep() {
 		resp.Body.Close()
 	}
 }
-func Testping() {
+func TestSFTP() {
 
-	p := fastping.NewPinger()
-	ra, err := net.ResolveIPAddr("ip6:icmp", os.Getenv("OWN_IPV6"))
+	remote := os.Getenv("OWN_IPV6")
+	port := ":22"
+	pass := os.Getenv("SFTPTESTPWD")
+	user := os.Getenv("SFTPTESTUSER")
+
+	config := ssh.ClientConfig{
+		User: user,
+		Auth: []ssh.AuthMethod{
+			ssh.Password(pass),
+		},
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+	conn, err := ssh.Dial("tcp", remote+port, &config)
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
-	p.AddIPAddr(ra)
-	p.OnRecv = func(addr *net.IPAddr, rtt time.Duration) {
-		log.Printf("IP Addr: %s receive, RTT: %v\n", addr.String(), rtt)
-	}
-	p.OnIdle = func() {
-		log.Println("finish")
-	}
-	err = p.Run()
+	defer conn.Close()
+	client, err := sftp.NewClient(conn)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
+	defer client.Close()
 }
