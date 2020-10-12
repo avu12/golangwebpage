@@ -10,8 +10,6 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	"github.com/pkg/sftp"
-	"golang.org/x/crypto/ssh"
 )
 
 var (
@@ -28,7 +26,7 @@ func init() {
 func StartApp() {
 	//Mapping urls with handlers
 	mapUrls()
-	TestSFTP()
+
 	//sending email every day
 	go dailymail.SendDailyMail()
 
@@ -69,29 +67,4 @@ func NoSleep() {
 		}
 		resp.Body.Close()
 	}
-}
-func TestSFTP() {
-
-	remote := os.Getenv("OWN_IPV6")
-	port := ":22"
-	pass := os.Getenv("SFTPTESTPWD")
-	user := os.Getenv("SFTPTESTUSER")
-
-	config := ssh.ClientConfig{
-		User: user,
-		Auth: []ssh.AuthMethod{
-			ssh.Password(pass),
-		},
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	}
-	conn, err := ssh.Dial("tcp", remote+port, &config)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer conn.Close()
-	client, err := sftp.NewClient(conn)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer client.Close()
 }
