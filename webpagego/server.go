@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
@@ -13,7 +12,6 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/net/proxy"
 )
 
 var (
@@ -30,7 +28,7 @@ func init() {
 func StartApp() {
 	//Mapping urls with handlers
 	mapUrls()
-	TestFixieSFTP()
+	//TestFixieSFTP()
 	//sending email every day
 	go dailymail.SendDailyMail()
 
@@ -96,10 +94,10 @@ func TestSFTP() {
 		log.Fatal(err)
 	}
 	defer client.Close()
-}
+} /*
 func TestFixieSFTP() {
 	remote := os.Getenv("OWN_IPV6")
-	//port := ":22"
+	port := ":22"
 	pass := os.Getenv("SFTPTESTPWD")
 	user := os.Getenv("SFTPTESTUSER")
 
@@ -123,10 +121,4 @@ func TestFixieSFTP() {
 		log.Println(os.Stderr, "can't connect to the proxy:", err)
 
 	}
-	conn, err := dialer.Dial("tcp", remote)
-	if err != nil {
-		log.Println(err)
-	}
-	defer conn.Close()
-
-}
+}*/
