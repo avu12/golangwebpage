@@ -251,6 +251,5 @@ func SelectAllBooks() (err error, b []types.Book) {
 		}
 		Bslice = append(Bslice, B)
 	}
-	log.Println(Bslice)
 	return nil, Bslice
 }

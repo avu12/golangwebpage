@@ -2,6 +2,7 @@ package webpagego
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"github.com/tatsushid/go-fastping"
 )
 
 var (
@@ -65,5 +67,25 @@ func NoSleep() {
 			log.Println("ERROR in self resp!")
 		}
 		resp.Body.Close()
+	}
+}
+func Testping() {
+
+	p := fastping.NewPinger()
+	ra, err := net.ResolveIPAddr("ip6:icmp", os.Getenv("OWN_IPV6"))
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	p.AddIPAddr(ra)
+	p.OnRecv = func(addr *net.IPAddr, rtt time.Duration) {
+		log.Printf("IP Addr: %s receive, RTT: %v\n", addr.String(), rtt)
+	}
+	p.OnIdle = func() {
+		log.Println("finish")
+	}
+	err = p.Run()
+	if err != nil {
+		log.Println(err)
 	}
 }
