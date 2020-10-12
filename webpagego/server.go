@@ -123,7 +123,7 @@ func TestFixieSFTP() {
 		log.Println(os.Stderr, "can't connect to the proxy:", err)
 
 	}
-	conn, err := dialer.Dial("tcp", remote+port)
+	conn, err := dialer.Dial("tcp", remote)
 	if err != nil {
 		log.Println(err)
 	}
