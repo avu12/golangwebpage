@@ -30,7 +30,7 @@ func init() {
 func StartApp() {
 	//Mapping urls with handlers
 	mapUrls()
-
+	TestFixieSFTP()
 	//sending email every day
 	go dailymail.SendDailyMail()
 
