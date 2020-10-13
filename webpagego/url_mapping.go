@@ -6,7 +6,6 @@ import (
 	"github.com/avu12/golangwebpage/book"
 	"github.com/avu12/golangwebpage/login"
 	"github.com/avu12/golangwebpage/mail"
-	"github.com/avu12/golangwebpage/redis"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +15,7 @@ func mapUrls() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
-	router.GET("/redistest", redis.Redishandler)
+	//router.GET("/redistest", redis.Redishandler)
 
 	router.POST("/weather", weather.GetWeatherNow)
 
