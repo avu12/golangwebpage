@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/avu12/golangwebpage/database"
+	"github.com/avu12/golangwebpage/types"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,13 +20,15 @@ func LoginHandler(c *gin.Context) {
 	if err != nil {
 		log.Println("Error happened in DB")
 	}
+	data := types.Logindata{}
 	if pwd == pwdhashindb {
-
-		log.Println("You logged in!")
-		c.HTML(http.StatusOK, "index.html", name)
+		data.Username = name
+		data.Isloggedin = true
+		c.HTML(http.StatusOK, "index.html", data)
 	} else {
-		log.Println("You did not log in!")
-		c.HTML(http.StatusOK, "index.html", "Not logged in")
+		data.Username = ""
+		data.Isloggedin = false
+		c.HTML(http.StatusOK, "index.html", data)
 	}
 
 }
