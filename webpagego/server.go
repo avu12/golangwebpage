@@ -23,7 +23,7 @@ func init() {
 	store, err := sessions.NewRedisStore(10, "tcp", os.Getenv("REDIS_URL"), "", []byte("secret"))
 	if err != nil {
 
-		log.Println("Problem with redis store in")
+		log.Println("Problem with redis store in init")
 	}
 	router.Use(sessions.Sessions("mysession", store))
 
