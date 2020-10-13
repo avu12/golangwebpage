@@ -20,15 +20,15 @@ func LoginHandler(c *gin.Context) {
 	if err != nil {
 		log.Println("Error happened in DB")
 	}
-	data := types.Logindata{}
+	Data := types.Logindata{}
 	if pwd == pwdhashindb {
-		data.Username = name
-		data.Isloggedin = true
-		c.HTML(http.StatusOK, "index.html", data)
+		Data.Username = name
+		Data.Isloggedin = true
+		c.HTML(http.StatusOK, "index.html", Data)
 	} else {
-		data.Username = ""
-		data.Isloggedin = false
-		c.HTML(http.StatusOK, "index.html", data)
+		Data.Username = ""
+		Data.Isloggedin = false
+		c.HTML(http.StatusOK, "index.html", Data)
 	}
 
 }
