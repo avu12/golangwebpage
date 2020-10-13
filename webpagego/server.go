@@ -26,6 +26,7 @@ func init() {
 		log.Println("Problem with redis store in init")
 	}
 	router.Use(sessions.Sessions("mysession", store))
+	log.Println("No problem with redis store in init")
 
 }
 
