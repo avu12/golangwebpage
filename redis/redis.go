@@ -10,8 +10,11 @@ import (
 )
 
 func Redishandler(c *gin.Context) {
+	log.Println("1")
 	session := sessions.Default(c)
+	log.Println("2")
 	sessionID := session.Get("user_id")
+	log.Println("3")
 	Data := types.Logindata{}
 	if sessionID == nil {
 		log.Println("Not authed")
