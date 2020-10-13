@@ -23,13 +23,13 @@ func MailHandler(c *gin.Context) {
 	hash := sha256.Sum256([]byte(email))
 	hashnosize := hash[:]
 	hashencoded := hex.EncodeToString(hashnosize)
-	database.InsertToMailTableWithoutConfirm(email, hashencoded)
-	SendConfirmation(email, hashencoded)
 	pwd := c.PostForm("pwd")
 	hashpwd := sha256.Sum256([]byte(pwd))
 	pwd = hex.EncodeToString(hashpwd[:])
 	name := c.PostForm("name")
-	Registeruserandpasword(name, pwd)
+	database.InsertToMailTableWithoutConfirm(email, hashencoded, name, pwd)
+	SendConfirmation(email, hashencoded)
+
 	c.HTML(http.StatusOK, "emailnotify.html", nil)
 }
 
@@ -75,8 +75,4 @@ func ConfirmRegistration(c *gin.Context) {
 		//no data, show error page:
 	}
 	c.HTML(http.StatusOK, "emailregistered.html", nil)
-}
-
-func Registeruserandpasword(username string, hashpwd string) {
-	log.Println(username, hashpwd)
 }

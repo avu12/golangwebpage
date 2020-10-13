@@ -118,14 +118,14 @@ func CityRateQuery(city string) (int, int, error) {
 	return citycount, count, nil
 }
 
-func InsertToMailTableWithoutConfirm(email string, hash string) error {
+func InsertToMailTableWithoutConfirm(email string, hash string, username string, pwdhash string) error {
 	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Println(err)
 	}
 	defer db.Close()
 
-	res, err := db.Exec(`INSERT INTO "EMAILLIST" ("email","confirmed","emailhash") VALUES ($1::text,$2,$3::text)`, email, false, hash)
+	res, err := db.Exec(`INSERT INTO "EMAILLIST" ("email","confirmed","emailhash","username","pwdhash") VALUES ($1::text,$2,$3::text,$4::text,$5::text)`, email, false, hash, username, pwdhash)
 	if err != nil {
 		log.Println(res, err)
 		return err

@@ -30,7 +30,10 @@ func mapUrls() {
 	router.GET("/recommendabook", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "books.html", nil)
 	})
+	router.GET("/loginpage", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "login.html", nil)
+	})
 
 	router.POST("/uploadbook", book.UploadBookHandler)
-
+	router.POST("/login", login.LoginHandler)
 }

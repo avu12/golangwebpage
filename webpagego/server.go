@@ -94,31 +94,4 @@ func TestSFTP() {
 		log.Fatal(err)
 	}
 	defer client.Close()
-} /*
-func TestFixieSFTP() {
-	remote := os.Getenv("OWN_IPV6")
-	port := ":22"
-	pass := os.Getenv("SFTPTESTPWD")
-	user := os.Getenv("SFTPTESTUSER")
-
-	config := ssh.ClientConfig{
-		User: user,
-		Auth: []ssh.AuthMethod{
-			ssh.Password(pass),
-		},
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	}
-	_ = config
-	fixie_data := strings.Split(os.Getenv("FIXIE_SOCKS_HOST"), "@")
-	fixie_addr := fixie_data[1]
-	auth_data := strings.Split(fixie_data[0], ":")
-	auth := proxy.Auth{
-		User:     auth_data[0],
-		Password: auth_data[1],
-	}
-	dialer, err := proxy.SOCKS5("tcp", fixie_addr, &auth, proxy.Direct)
-	if err != nil {
-		log.Println(os.Stderr, "can't connect to the proxy:", err)
-
-	}
-}*/
+}
