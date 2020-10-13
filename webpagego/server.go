@@ -24,7 +24,7 @@ func init() {
 	store, err := sessions.NewRedisStore(10, "tcp", os.Getenv("REDIS_URL"), "", []byte("secret"))
 	if err != nil {
 
-		log.Println("Problem with redis store in init")
+		log.Println("Problem with redis store in init", err)
 	}
 	opt.MaxAge = 86400
 	opt.Path = "/"
