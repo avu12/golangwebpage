@@ -14,7 +14,9 @@ func Redishandler(c *gin.Context) {
 
 	session := sessions.Default(c)
 	log.Println("2")
+
 	Data := types.Logindata{}
+	log.Println("2.5")
 	_ = session.Get("user_id")
 	log.Println("3")
 	sessionID := 2
