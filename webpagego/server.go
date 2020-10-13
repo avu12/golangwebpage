@@ -15,6 +15,7 @@ import (
 
 var (
 	router *gin.Engine
+	opt    sessions.Options
 )
 
 func init() {
@@ -25,6 +26,15 @@ func init() {
 
 		log.Println("Problem with redis store in init")
 	}
+	opt.MaxAge = 86400
+	opt.Path = "/"
+	opt.Secure = true
+	opt.HttpOnly = true
+
+	store.Options(opt)
+
+	//Redis need correct config to use!
+
 	router.Use(sessions.Sessions("mysession", store))
 	log.Println("No problem with redis store in init")
 

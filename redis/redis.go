@@ -10,18 +10,12 @@ import (
 )
 
 func Redishandler(c *gin.Context) {
-	log.Println("1")
 
 	session := sessions.Default(c)
-	log.Println("2")
-
 	Data := types.Logindata{}
-	log.Println("2.5")
-	_ = session.Get("user_id")
-	log.Println("3")
-	sessionID := 2
-	log.Println("4")
-	if sessionID == 7 {
+	sessionID := session.Get("user_id")
+
+	if sessionID == nil {
 		log.Println("Not authed")
 		c.HTML(http.StatusOK, "index.html", Data)
 	} else {
@@ -34,8 +28,8 @@ func Redishandler(c *gin.Context) {
 
 	Data.Isloggedin = true
 	Data.Username = "redistest"
-	sessionID = 5
-	if sessionID == 9 {
+	sessionID = session.Get("user_id")
+	if sessionID == nil {
 		log.Println("Not authed")
 		c.HTML(http.StatusOK, "index.html", Data)
 	} else {
