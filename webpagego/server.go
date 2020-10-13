@@ -6,7 +6,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/avu12/golangwebpage/types"
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/contrib/static"
@@ -32,8 +31,6 @@ func init() {
 
 //StartApp is the main entrypoint to the app
 func StartApp() {
-	UserController := new(types.UserController)
-	router.GET("/redistest", UserController.Redishandler)
 	//Mapping urls with handlers
 	mapUrls()
 
