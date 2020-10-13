@@ -15,13 +15,19 @@ import (
 
 var (
 	router *gin.Engine
-	opt    sessions.Options
 )
 
 func init() {
 	router = gin.Default()
 	router.LoadHTMLGlob("static/*")
 	store, err := sessions.NewRedisStore(10, "tcp", os.Getenv("REDIS_URL"), "", []byte("secret"))
+	if err != nil {
+
+		log.Println("Problem with redis store in init", err)
+	}
+	router.Use(sessions.Sessions("mysession", store))
+	log.Println("No problem with redis store in init")
+	/*store, err := sessions.NewRedisStore(10, "tcp", os.Getenv("REDIS_URL"), "", []byte("secret"))
 	if err != nil {
 
 		log.Println("Problem with redis store in init", err)
@@ -36,7 +42,7 @@ func init() {
 	//Redis need correct config to use!
 
 	router.Use(sessions.Sessions("mysession", store))
-	log.Println("No problem with redis store in init")
+	log.Println("No problem with redis store in init")*/
 
 }
 
