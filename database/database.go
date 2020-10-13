@@ -23,6 +23,7 @@ var (
 	email     string
 	quote     string
 	B         types.Book
+	pwdhash   string
 )
 
 func StartDatabaseUse(dbname string) (*sql.DB, error) {
@@ -252,4 +253,25 @@ func SelectAllBooks() (err error, b []types.Book) {
 		Bslice = append(Bslice, B)
 	}
 	return nil, Bslice
+}
+
+func SelectUsernameAndPwdhash(username string) (string, error) {
+	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Println(err)
+		return "", err
+	}
+	defer db.Close()
+	rows, err := db.Query(`SELECT pwdhash FROM "EMAILLIST" WHERE username = $1`, username)
+	if err != nil {
+		return "", err
+	}
+	for rows.Next() {
+		err := rows.Scan(&pwdhash)
+		if err != nil {
+			log.Println(err)
+			return "", err
+		}
+	}
+	return pwdhash, nil
 }
