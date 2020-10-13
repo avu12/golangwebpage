@@ -20,6 +20,8 @@ func LoginHandler(c *gin.Context) {
 		log.Println("Error happened in DB")
 	}
 	if pwd == pwdhashindb {
+		log.Println(pwd)
+		log.Println(pwdhashindb)
 		log.Println("You logged in!")
 	} else {
 		log.Println("You did not log in!")
