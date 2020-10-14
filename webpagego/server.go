@@ -1,7 +1,6 @@
 package webpagego
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -23,9 +22,8 @@ var (
 
 func init() {
 	router = gin.Default()
-	router.SetFuncMap(template.FuncMap{
-		"kindIs": sprig.GenericFuncMap,
-	})
+
+	router.SetFuncMap(sprig.FuncMap())
 
 	router.LoadHTMLGlob("static/*")
 	opt, err := redis.ParseURL(os.Getenv("REDIS_URL"))
