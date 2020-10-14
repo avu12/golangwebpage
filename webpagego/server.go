@@ -18,6 +18,7 @@ import (
 
 var (
 	router *gin.Engine
+	optp   sessions.Options
 )
 
 func init() {
@@ -35,7 +36,8 @@ func init() {
 
 		log.Println("Problem with redis store in init", err)
 	}
-
+	optp.Path = "/"
+	store.Options(optp)
 	router.Use(sessions.Sessions("mysession", store))
 	log.Println("No problem with redis store in init")
 
