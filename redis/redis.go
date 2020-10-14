@@ -37,5 +37,4 @@ func Redishandler(c *gin.Context) {
 	}
 	session.Clear()
 	session.Save()
-	c.HTML(http.StatusOK, "index.html", Data)
 }
