@@ -1,10 +1,13 @@
 package webpagego
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/Masterminds/sprig"
 
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
 	"github.com/gin-gonic/contrib/sessions"
@@ -20,6 +23,10 @@ var (
 
 func init() {
 	router = gin.Default()
+	router.SetFuncMap(template.FuncMap{
+		"kindIs": sprig.GenericFuncMap(),
+	})
+
 	router.LoadHTMLGlob("static/*")
 	opt, err := redis.ParseURL(os.Getenv("REDIS_URL"))
 	if err != nil {
