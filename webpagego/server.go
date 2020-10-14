@@ -10,33 +10,31 @@ import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 	_ "github.com/lib/pq"
 )
 
 var (
 	router *gin.Engine
-	opt    sessions.Options
 )
 
 func init() {
 	router = gin.Default()
 	router.LoadHTMLGlob("static/*")
-	/*store, err := sessions.NewRedisStore(10, "tcp", os.Getenv("REDIS_URL"), "", []byte("secret"))
+	opt, err := redis.ParseURL(os.Getenv("REDIS_URL"))
+	if err != nil {
+		log.Println(err)
+	}
+	store, err := sessions.NewRedisStore(10, "tcp", opt.Addr, "", []byte(opt.Password))
 	if err != nil {
 
 		log.Println("Problem with redis store in init", err)
 	}
-	opt.MaxAge = 86400
-	opt.Path = "/"
-	opt.Secure = true
-	opt.HttpOnly = true
-
-	store.Options(opt)
 
 	//Redis need correct config to use!
 
 	router.Use(sessions.Sessions("mysession", store))
-	log.Println("No problem with redis store in init")*/
+	log.Println("No problem with redis store in init")
 
 }
 
