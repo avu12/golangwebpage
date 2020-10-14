@@ -24,7 +24,7 @@ var (
 func init() {
 	router = gin.Default()
 	router.SetFuncMap(template.FuncMap{
-		"kindIs": sprig.GenericFuncMap(),
+		"kindIs": sprig.GenericFuncMap,
 	})
 
 	router.LoadHTMLGlob("static/*")
