@@ -25,7 +25,7 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	store, err := sessions.NewRedisStore(10, "tcp", opt.Addr, "", []byte(opt.Password))
+	store, err := sessions.NewRedisStore(10, "tcp", opt.Addr, opt.Password)
 	if err != nil {
 
 		log.Println("Problem with redis store in init", err)
