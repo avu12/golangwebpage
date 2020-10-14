@@ -15,7 +15,7 @@ func mapUrls() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
-	//router.GET("/redistest", redis.Redishandler)
+	router.GET("/redistest", redis.Redishandler)
 
 	router.POST("/weather", weather.GetWeatherNow)
 
