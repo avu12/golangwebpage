@@ -6,7 +6,6 @@ import (
 	"github.com/avu12/golangwebpage/book"
 	"github.com/avu12/golangwebpage/login"
 	"github.com/avu12/golangwebpage/mail"
-	"github.com/avu12/golangwebpage/redis"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -19,7 +18,6 @@ func mapUrls() {
 		username := session.Get("user_username")
 		c.HTML(http.StatusOK, "index.html", username)
 	})
-	router.GET("/redistest", redis.Redishandler)
 
 	router.POST("/weather", weather.GetWeatherNow)
 
