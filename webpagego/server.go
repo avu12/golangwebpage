@@ -38,6 +38,8 @@ func init() {
 	}
 	optp.Path = "/"
 	optp.HttpOnly = true
+	optp.Secure = true
+	optp.MaxAge = 3600 * 4
 	store.Options(optp)
 	router.Use(sessions.Sessions("mysession", store))
 	log.Println("No problem with redis store in init")
