@@ -7,16 +7,13 @@ import (
 	"github.com/avu12/golangwebpage/login"
 	"github.com/avu12/golangwebpage/mail"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 func mapUrls() {
 
 	router.GET("/", func(c *gin.Context) {
-		session := sessions.Default(c)
-		username := session.Get("user_username")
-		c.HTML(http.StatusOK, "index.html", username)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
 	router.POST("/weather", weather.GetWeatherNow)
