@@ -12,9 +12,7 @@ import (
 
 func mapUrls() {
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
+	router.GET("/", login.GetUserFromRedis)
 
 	router.POST("/weather", weather.GetWeatherNow)
 

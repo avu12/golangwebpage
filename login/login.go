@@ -35,3 +35,9 @@ func AddUserToRedis(c *gin.Context, username string) {
 	session.Set("user_username", username)
 	session.Save()
 }
+
+func GetUserFromRedis(c *gin.Context) {
+	session := sessions.Default(c)
+	username := session.Get("user_username")
+	c.HTML(http.StatusOK, "index.html", username)
+}
