@@ -31,8 +31,6 @@ func init() {
 		log.Println("Problem with redis store in init", err)
 	}
 
-	//Redis need correct config to use!
-
 	router.Use(sessions.Sessions("mysession", store))
 	log.Println("No problem with redis store in init")
 

@@ -8,13 +8,16 @@ import (
 	"github.com/avu12/golangwebpage/mail"
 	"github.com/avu12/golangwebpage/redis"
 	"github.com/avu12/golangwebpage/webpagego/internal/controller/weather"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 func mapUrls() {
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
+		session := sessions.Default(c)
+		username := session.Get("user_username")
+		c.HTML(http.StatusOK, "index.html", username)
 	})
 	router.GET("/redistest", redis.Redishandler)
 

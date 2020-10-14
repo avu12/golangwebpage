@@ -8,6 +8,7 @@ import (
 
 	"github.com/avu12/golangwebpage/database"
 	"github.com/avu12/golangwebpage/types"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,6 +25,7 @@ func LoginHandler(c *gin.Context) {
 	if pwd == pwdhashindb {
 		Data.Username = name
 		Data.Isloggedin = true
+		AddUserToRedis(c, name)
 		c.HTML(http.StatusOK, "index.html", Data)
 	} else {
 		Data.Username = ""
@@ -31,4 +33,11 @@ func LoginHandler(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", Data)
 	}
 
+}
+
+func AddUserToRedis(c *gin.Context, username string) {
+	session := sessions.Default(c)
+	//set true for logged in
+	session.Set("user_username", username)
+	session.Save()
 }
