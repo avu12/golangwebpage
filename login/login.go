@@ -22,6 +22,7 @@ func LoginHandler(c *gin.Context) {
 	}
 	if pwd == pwdhashindb {
 		AddUserToRedis(c, name)
+		AddCookieToUser(c, name)
 		c.HTML(http.StatusOK, "index.html", name)
 	} else {
 		c.HTML(http.StatusOK, "index.html", nil)
@@ -40,4 +41,18 @@ func GetUserFromRedis(c *gin.Context) {
 	session := sessions.Default(c)
 	username := session.Get("user_username")
 	c.HTML(http.StatusOK, "index.html", username)
+}
+
+func AddCookieToUser(c *gin.Context, name string) {
+	c.SetCookie("username", name, 60*10, "/", "golangwebpagev2.herokuapp.com/", true, true)
+}
+
+func GetUserCookie(c *gin.Context) {
+	uname, err := c.Cookie("username")
+	if err != nil {
+		log.Println("Problem with username Cookie!")
+		c.HTML(http.StatusOK, "index.html", nil)
+		return
+	}
+	c.HTML(http.StatusOK, "index.html", uname)
 }

@@ -36,7 +36,7 @@ func init() {
 
 		log.Println("Problem with redis store in init", err)
 	}
-	//optp.Path = "/"
+	optp.Path = "/"
 	optp.HttpOnly = true
 	optp.Secure = true
 	optp.MaxAge = 3600 * 4

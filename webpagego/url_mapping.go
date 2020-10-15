@@ -12,7 +12,7 @@ import (
 
 func mapUrls() {
 
-	router.GET("/", login.GetUserFromRedis)
+	router.GET("/", login.GetUserCookie)
 
 	router.POST("/weather", weather.GetWeatherNow)
 
