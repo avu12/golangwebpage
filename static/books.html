@@ -7,11 +7,12 @@
 
 <body>
 
-  <h1> You can submit new book recommendation to others </h1>
+
   {{if kindIs "invalid" .}}
-  Please login for this functionality!
+  <h1>Please login for this functionality! </h1>
   <a href="/" class="button">Go back to the homepage!</a>
   {{else }}
+  <h1> You can submit new book recommendation to others </h1>
   <form action="/uploadbook" method="post">
     <div class="flex-container">
       <input type="text" placeholder="Author" name="author" required>
