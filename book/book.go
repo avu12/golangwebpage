@@ -38,3 +38,11 @@ func ShowAllBooks() ([]types.Book, error) {
 	}
 	return Bsclice, nil
 }
+func BookRecommenderHandler(c *gin.Context) {
+	uname, err := c.Cookie("username")
+	if err != nil {
+		c.HTML(http.StatusOK, "books.html", nil)
+		return
+	}
+	c.HTML(http.StatusOK, "books.html", uname)
+}

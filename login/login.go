@@ -47,7 +47,7 @@ func AddCookieToUser(c *gin.Context, name string) {
 	c.SetCookie("username", name, 60*10, "/", "golangwebpagev2.herokuapp.com", true, true)
 }
 
-func GetUserCookie(c *gin.Context) {
+func HomepageHandler(c *gin.Context) {
 	uname, err := c.Cookie("username")
 	if err != nil {
 		c.HTML(http.StatusOK, "index.html", nil)

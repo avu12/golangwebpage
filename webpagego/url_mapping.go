@@ -12,7 +12,7 @@ import (
 
 func mapUrls() {
 
-	router.GET("/", login.GetUserCookie)
+	router.GET("/", login.HomepageHandler)
 
 	router.POST("/weather", weather.GetWeatherNow)
 
@@ -26,9 +26,7 @@ func mapUrls() {
 	})
 	router.GET("/emailregistered/:emailhash", mail.ConfirmRegistration)
 
-	router.GET("/recommendabook", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "books.html", nil)
-	})
+	router.GET("/recommendabook", book.BookRecommenderHandler)
 	router.GET("/loginpage", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "login.html", nil)
 	})
