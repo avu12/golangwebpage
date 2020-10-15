@@ -19,7 +19,11 @@
   
   <div class="flex-container">
     <a href="/loadweatherpage" class="button">Weather app</a>
+    {{if kindIs "invalid" .}}
     <a href="/loginpage" class="button">Login</a>
+    {{else }}
+    <a href="/logout" class="button">Logout</a>
+    {{end}}
     <a href="/emailregpage" class="button">Registration page</a>
     <a href="/recommendabook" class="button">Recommend a book to others</a>
   </div>

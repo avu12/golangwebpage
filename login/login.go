@@ -44,15 +44,23 @@ func GetUserFromRedis(c *gin.Context) {
 }
 
 func AddCookieToUser(c *gin.Context, name string) {
-	c.SetCookie("username", name, 60*10, "/", "golangwebpagev2.herokuapp.com/", true, true)
+	c.SetCookie("username", name, 60*10, "/", "golangwebpagev2.herokuapp.com", true, true)
 }
 
 func GetUserCookie(c *gin.Context) {
 	uname, err := c.Cookie("username")
 	if err != nil {
-		log.Println("Problem with username Cookie!")
 		c.HTML(http.StatusOK, "index.html", nil)
 		return
 	}
 	c.HTML(http.StatusOK, "index.html", uname)
+}
+func LogoutHandler(c *gin.Context) {
+	uname, err := c.Cookie("username")
+	if err != nil {
+		c.HTML(http.StatusOK, "index.html", nil)
+		return
+	}
+	c.SetCookie("username", uname, -1, "/", "golangwebpagev2.herokuapp.com", true, true)
+	c.HTML(http.StatusOK, "index.html", nil)
 }

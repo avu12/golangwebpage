@@ -35,4 +35,5 @@ func mapUrls() {
 
 	router.POST("/uploadbook", book.UploadBookHandler)
 	router.POST("/login", login.LoginHandler)
+	router.GET("/logout", login.LogoutHandler)
 }
