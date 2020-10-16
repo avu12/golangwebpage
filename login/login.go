@@ -23,9 +23,18 @@ func LoginHandler(c *gin.Context) {
 	if pwd == pwdhashindb {
 		AddUserToRedis(c, name)
 		AddCookieToUser(c, name)
-		c.HTML(http.StatusOK, "index.html", name)
+		datas := map[string]interface{}{
+			"alert": false,
+			"uname": name,
+		}
+		c.HTML(http.StatusOK, "index.html", datas)
 	} else {
-		c.HTML(http.StatusOK, "index.html", nil)
+		uname, _ := GetUsername(c)
+		datas := map[string]interface{}{
+			"alert": true,
+			"uname": uname,
+		}
+		c.HTML(http.StatusOK, "index.html", datas)
 	}
 
 }
@@ -37,30 +46,44 @@ func AddUserToRedis(c *gin.Context, username string) {
 	session.Save()
 }
 
+/*
 func GetUserFromRedis(c *gin.Context) {
 	session := sessions.Default(c)
 	username := session.Get("user_username")
 	c.HTML(http.StatusOK, "index.html", username)
-}
+}*/
 
 func AddCookieToUser(c *gin.Context, name string) {
 	c.SetCookie("username", name, 60*10, "/", "golangwebpagev2.herokuapp.com", true, true)
 }
 
 func HomepageHandler(c *gin.Context) {
-	uname, err := c.Cookie("username")
-	if err != nil {
-		c.HTML(http.StatusOK, "index.html", nil)
-		return
+	uname, _ := GetUsername(c)
+	datas := map[string]interface{}{
+		"alert": false,
+		"uname": uname,
 	}
-	c.HTML(http.StatusOK, "index.html", uname)
+	c.HTML(http.StatusOK, "index.html", datas)
 }
 func LogoutHandler(c *gin.Context) {
-	uname, err := c.Cookie("username")
+	uname, err := GetUsername(c)
+	datas := map[string]interface{}{
+		"alert": false,
+		"uname": uname,
+	}
 	if err != nil {
-		c.HTML(http.StatusOK, "index.html", nil)
+		c.HTML(http.StatusOK, "index.html", datas)
 		return
 	}
+
 	c.SetCookie("username", uname, -1, "/", "golangwebpagev2.herokuapp.com", true, true)
-	c.HTML(http.StatusOK, "index.html", nil)
+	c.HTML(http.StatusOK, "index.html", datas)
+}
+
+func GetUsername(c *gin.Context) (string, error) {
+	uname, err := c.Cookie("username")
+	if err != nil {
+		return uname, err
+	}
+	return uname, err
 }

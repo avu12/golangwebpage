@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="indexstyles.css">
   </head>
   <body>
+    <div class="box">
+      {{if kindIs "invalid" .}}
+      You are not logged in!
+      {{else }}
+      You are logged in as {{ . }}
+      {{end}}
+      
+    </div>
     <h1>Add your name and press the button to get the weather in the target city!</h1>
 
     <form action="/weather" method="post">

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/avu12/golangwebpage/login"
 	"github.com/avu12/golangwebpage/webpagego/internal/domain/weather"
 	"github.com/avu12/golangwebpage/webpagego/internal/services"
 	"github.com/gin-gonic/gin"
@@ -31,6 +32,7 @@ func GetWeatherNow(c *gin.Context) {
 		"citynumber":  result.Ratio.CityNumber,
 		"number":      result.Ratio.Number,
 		"description": result.Description,
+		"uname":       login.GetUsername(c),
 	}
 	c.HTML(http.StatusOK, "result.html", datas)
 }

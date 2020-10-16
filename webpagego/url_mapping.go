@@ -19,10 +19,12 @@ func mapUrls() {
 	router.POST("/emaildidreg", mail.MailHandler)
 
 	router.GET("/loadweatherpage", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "weather.html", nil)
+		uname := login.GetUsername(c)
+		c.HTML(http.StatusOK, "weather.html", uname)
 	})
 	router.GET("/emailregpage", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "emailreg.html", nil)
+		uname := login.GetUsername(c)
+		c.HTML(http.StatusOK, "emailreg.html", uname)
 	})
 	router.GET("/emailregistered/:emailhash", mail.ConfirmRegistration)
 

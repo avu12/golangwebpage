@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="../indexstyles.css">
   </head>
   <body>
+    <div class="box">
+      {{if kindIs "invalid" .}}
+      You are not logged in!
+      {{else }}
+      You are logged in as {{ . }}
+      {{end}}
+      
+    </div>
     
      <h1> You registered sucessfully! </h1>
 

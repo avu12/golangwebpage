@@ -8,10 +8,15 @@
 
 <body>
   <div class="box">
-    {{if kindIs "invalid" .}}
+    {{if kindIs "invalid" .uname}}
     You are not logged in!
     {{else }}
-    You are logged in as {{ . }}
+    You are logged in as {{ .uname }}
+    {{end}}
+    {{if .alert }}
+    <script>
+      alert("Wrong username and/or password, sorry!");
+    </script>
     {{end}}
     
   </div>

@@ -10,6 +10,7 @@ import (
 	"text/template"
 
 	"github.com/avu12/golangwebpage/database"
+	"github.com/avu12/golangwebpage/login"
 	"github.com/domodwyer/mailyak"
 	"github.com/gin-gonic/gin"
 )
@@ -29,8 +30,8 @@ func MailHandler(c *gin.Context) {
 	name := c.PostForm("name")
 	database.InsertToMailTableWithoutConfirm(email, hashencoded, name, pwd)
 	SendConfirmation(email, hashencoded)
-
-	c.HTML(http.StatusOK, "emailnotify.html", nil)
+	uname, _ := login.GetUsername(c)
+	c.HTML(http.StatusOK, "emailnotify.html", uname)
 }
 
 func SendConfirmation(email string, hashencoded string) {
@@ -74,5 +75,6 @@ func ConfirmRegistration(c *gin.Context) {
 	} else {
 		//no data, show error page:
 	}
-	c.HTML(http.StatusOK, "emailregistered.html", nil)
+	uname, _ := login.GetUsername(c)
+	c.HTML(http.StatusOK, "emailregistered.html", uname)
 }
