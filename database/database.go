@@ -83,6 +83,7 @@ func CityRateQuery(city string) (int, int, error) {
 	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Println(err)
+		return -1, -1, err
 	}
 	defer db.Close()
 
@@ -123,6 +124,7 @@ func InsertToMailTableWithoutConfirm(email string, hash string, username string,
 	db, err := StartDatabaseUse(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Println(err)
+		return err
 	}
 	defer db.Close()
 

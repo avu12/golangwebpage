@@ -28,7 +28,11 @@ func MailHandler(c *gin.Context) {
 	hashpwd := sha256.Sum256([]byte(pwd))
 	pwd = hex.EncodeToString(hashpwd[:])
 	name := c.PostForm("name")
-	database.InsertToMailTableWithoutConfirm(email, hashencoded, name, pwd)
+	err := database.InsertToMailTableWithoutConfirm(email, hashencoded, name, pwd)
+	if err != nil {
+		c.HTML(http.StatusOK, "error.html", "Email already registered!")
+		return
+	}
 	SendConfirmation(email, hashencoded)
 	uname, err := login.GetUsername(c)
 	if err != nil {
