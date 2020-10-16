@@ -30,6 +30,7 @@ func mapUrls() {
 		uname, err := login.GetUsername(c)
 		if err != nil {
 			c.HTML(http.StatusOK, "emailreg.html", nil)
+			return
 		}
 		c.HTML(http.StatusOK, "emailreg.html", uname)
 	})
