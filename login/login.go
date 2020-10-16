@@ -29,10 +29,13 @@ func LoginHandler(c *gin.Context) {
 		}
 		c.HTML(http.StatusOK, "index.html", datas)
 	} else {
-		uname, _ := GetUsername(c)
+		uname, err := GetUsername(c)
 		datas := map[string]interface{}{
 			"alert": true,
 			"uname": uname,
+		}
+		if err != nil {
+			datas["uname"] = nil
 		}
 		c.HTML(http.StatusOK, "index.html", datas)
 	}
@@ -58,10 +61,13 @@ func AddCookieToUser(c *gin.Context, name string) {
 }
 
 func HomepageHandler(c *gin.Context) {
-	uname, _ := GetUsername(c)
+	uname, err := GetUsername(c)
 	datas := map[string]interface{}{
 		"alert": false,
 		"uname": uname,
+	}
+	if err != nil {
+		datas["uname"] = nil
 	}
 	c.HTML(http.StatusOK, "index.html", datas)
 }
@@ -72,6 +78,7 @@ func LogoutHandler(c *gin.Context) {
 		"uname": uname,
 	}
 	if err != nil {
+		datas["uname"] = nil
 		c.HTML(http.StatusOK, "index.html", datas)
 		return
 	}
@@ -82,8 +89,5 @@ func LogoutHandler(c *gin.Context) {
 
 func GetUsername(c *gin.Context) (string, error) {
 	uname, err := c.Cookie("username")
-	if err != nil {
-		return uname, err
-	}
 	return uname, err
 }

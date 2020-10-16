@@ -23,7 +23,7 @@ func GetWeatherNow(c *gin.Context) {
 		c.HTML(http.StatusOK, "error.html", nil)
 		return
 	}
-	uname, _ := login.GetUsername(c)
+	uname, err := login.GetUsername(c)
 	datas := map[string]interface{}{
 		"city":        request.CityName,
 		"personname":  request.PersonName,
@@ -34,5 +34,9 @@ func GetWeatherNow(c *gin.Context) {
 		"description": result.Description,
 		"uname":       uname,
 	}
+	if err != nil {
+		datas["uname"] = nil
+	}
+
 	c.HTML(http.StatusOK, "result.html", datas)
 }

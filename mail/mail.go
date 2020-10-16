@@ -30,7 +30,11 @@ func MailHandler(c *gin.Context) {
 	name := c.PostForm("name")
 	database.InsertToMailTableWithoutConfirm(email, hashencoded, name, pwd)
 	SendConfirmation(email, hashencoded)
-	uname, _ := login.GetUsername(c)
+	uname, err := login.GetUsername(c)
+	if err != nil {
+		c.HTML(http.StatusOK, "emailnotify.html", nil)
+		return
+	}
 	c.HTML(http.StatusOK, "emailnotify.html", uname)
 }
 
@@ -75,6 +79,10 @@ func ConfirmRegistration(c *gin.Context) {
 	} else {
 		//no data, show error page:
 	}
-	uname, _ := login.GetUsername(c)
+	uname, err := login.GetUsername(c)
+	if err != nil {
+		c.HTML(http.StatusOK, "emailregistered.html", nil)
+		return
+	}
 	c.HTML(http.StatusOK, "emailregistered.html", uname)
 }
