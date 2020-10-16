@@ -82,7 +82,7 @@ func LogoutHandler(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", datas)
 		return
 	}
-
+	datas["uname"] = nil
 	c.SetCookie("username", uname, -1, "/", "golangwebpagev2.herokuapp.com", true, true)
 	c.HTML(http.StatusOK, "index.html", datas)
 }
