@@ -107,7 +107,7 @@ func TlsHandler() gin.HandlerFunc {
 
 		if err != nil {
 			log.Println(err)
-		}s
+		}
 
 		c.Next()
 	}
