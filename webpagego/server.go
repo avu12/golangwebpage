@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/Masterminds/sprig"
-	"github.com/unrolled/secure"
 
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
 	"github.com/gin-gonic/contrib/sessions"
@@ -43,7 +42,7 @@ func init() {
 	optp.MaxAge = 3600 * 4
 	store.Options(optp)
 	router.Use(sessions.Sessions("mysession", store))
-	router.Use(TlsHandler())
+
 	log.Println("No problem with redis store in init")
 
 }
@@ -94,21 +93,5 @@ func NoSleep() {
 			log.Println("ERROR in self resp!")
 		}
 		resp.Body.Close()
-	}
-}
-
-func TlsHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		secureMiddleware := secure.New(secure.Options{
-			SSLRedirect: true,
-			SSLHost:     "golangwebpagev2.herokuapp.com:" + os.Getenv("PORT"),
-		})
-		err := secureMiddleware.Process(c.Writer, c.Request)
-
-		if err != nil {
-			log.Println(err)
-		}
-
-		c.Next()
 	}
 }
