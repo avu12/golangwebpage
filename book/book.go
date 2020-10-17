@@ -41,6 +41,7 @@ func ShowAllBooks() ([]types.Book, error) {
 func BookRecommenderHandler(c *gin.Context) {
 	uname, err := c.Cookie("username")
 	if err != nil {
+		log.Println(err)
 		c.HTML(http.StatusOK, "books.html", nil)
 		return
 	}
