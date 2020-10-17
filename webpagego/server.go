@@ -106,8 +106,8 @@ func TlsHandler() gin.HandlerFunc {
 		err := secureMiddleware.Process(c.Writer, c.Request)
 
 		if err != nil {
-			return
-		}
+			log.Println(err)
+		}s
 
 		c.Next()
 	}
