@@ -43,6 +43,7 @@ func init() {
 	optp.MaxAge = 3600 * 4
 	store.Options(optp)
 	router.Use(sessions.Sessions("mysession", store))
+	router.Use(TlsHandler())
 	log.Println("No problem with redis store in init")
 
 }
@@ -64,7 +65,6 @@ func StartApp() {
 		log.Fatal("$PORT must be set")
 	}
 	router.Use(static.Serve("/", static.LocalFile("./static", true)))
-	router.Use(TlsHandler())
 
 	err := router.Run(":" + port)
 
