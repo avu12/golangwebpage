@@ -14,7 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	_ "github.com/lib/pq"
-	"github.com/unrolled/secure"
 )
 
 var (
@@ -64,21 +63,7 @@ func StartApp() {
 		log.Fatal("$PORT must be set")
 	}
 	router.Use(static.Serve("/", static.LocalFile("./static", true)))
-	ForceSSL := func() gin.HandlerFunc {
-		return func(c *gin.Context) {
-			secureMiddleware := secure.New(secure.Options{
-				SSLRedirect: true,
-			})
-			err := secureMiddleware.Process(c.Writer, c.Request)
 
-			if err != nil {
-				return
-			}
-
-			c.Next()
-		}
-	}()
-	router.Use(ForceSSL)
 	err := router.Run(":" + port)
 
 	if err != nil {
