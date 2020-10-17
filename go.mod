@@ -27,6 +27,7 @@ require (
 	github.com/sparrc/go-ping v0.0.0-20190613174326-4e5b6552494c // indirect
 	github.com/tatsushid/go-fastping v0.0.0-20160109021039-d7bb493dee3e
 	github.com/tebeka/selenium v0.9.9 // indirect
+	github.com/unrolled/secure v1.0.8
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7
 )
