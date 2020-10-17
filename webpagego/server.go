@@ -63,9 +63,7 @@ func StartApp() {
 		log.Fatal("$PORT must be set")
 	}
 	router.Use(static.Serve("/", static.LocalFile("./static", true)))
-	fakesslcert := ""
-	fakesslkey := ""
-	err := router.RunTLS(":"+port, fakesslcert, fakesslkey)
+	err := router.Run(":" + port)
 
 	if err != nil {
 		panic(err)
