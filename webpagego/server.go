@@ -101,7 +101,7 @@ func TlsHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		secureMiddleware := secure.New(secure.Options{
 			SSLRedirect: true,
-			SSLHost:     "golangwebpagev2.herokuapp.com" + os.Getenv("PORT"),
+			SSLHost:     "golangwebpagev2.herokuapp.com",
 		})
 		err := secureMiddleware.Process(c.Writer, c.Request)
 
