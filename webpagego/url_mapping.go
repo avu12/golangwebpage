@@ -1,7 +1,6 @@
 package webpagego
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/avu12/golangwebpage/book"
@@ -39,7 +38,6 @@ func mapUrls() {
 
 	router.GET("/recommendabook", book.BookRecommenderHandler)
 	router.GET("/loginpage", func(c *gin.Context) {
-		log.Println(c.Request.Header.Values("X-Forwarded-Proto"))
 		c.HTML(http.StatusOK, "login.html", nil)
 	})
 

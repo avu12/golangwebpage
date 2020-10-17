@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/Masterminds/sprig"
+	"github.com/unrolled/secure"
 
 	"github.com/avu12/golangwebpage/webpagego/internal/dailymail"
 	"github.com/gin-gonic/contrib/sessions"
@@ -63,6 +64,7 @@ func StartApp() {
 		log.Fatal("$PORT must be set")
 	}
 	router.Use(static.Serve("/", static.LocalFile("./static", true)))
+	router.Use(TlsHandler())
 
 	err := router.Run(":" + port)
 
@@ -92,5 +94,20 @@ func NoSleep() {
 			log.Println("ERROR in self resp!")
 		}
 		resp.Body.Close()
+	}
+}
+
+func TlsHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		secureMiddleware := secure.New(secure.Options{
+			SSLRedirect: true,
+		})
+		err := secureMiddleware.Process(c.Writer, c.Request)
+
+		if err != nil {
+			return
+		}
+
+		c.Next()
 	}
 }
